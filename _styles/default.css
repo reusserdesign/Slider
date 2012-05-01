@@ -1,0 +1,60 @@
+body {
+  background: #FFF;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+@-webkit-keyframes slideLeft {
+  0%, 100% {
+    left: 0;
+  }
+
+  20.833% {
+    left: 0;
+  }
+
+  25% {
+    left: -768px;
+  }
+
+  45.833% {
+    left: -768px;
+  }
+
+  50% {
+    left: -1536px;
+  }
+
+  70.833% {
+    left: -1536px;
+  }
+
+  75.0% {
+    left: -2304px;
+  }
+
+  95.833% {
+    left: -2304px;
+  }
+}
+
+#slider {
+  position: relative;
+  overflow: hidden;
+}
+#slider, #slider div img {
+  width: 768px;
+  height: 341px;
+}
+#slider div {
+  position: absolute;
+  width: 3072px;
+}
+#slider img {
+  float: right;
+}
+#slider div {
+  -webkit-animation: slideLeft 24s ease infinite;
+}
+#slider div:hover {
+  -webkit-animation-play-state: paused;
+}

@@ -1,0 +1,44 @@
+// Body properties
+body {
+	background: #FFF;
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+// Slider
+@mixin slider($id, $bannerWidth, $bannerHeight, $totalImages, $slideDuration: 5, $transitionDuration: 1) {
+
+	// Formulas
+	$totalDuration: ($slideDuration + $transitionDuration) * ($totalImages)+s;
+	$totalSlideDuration: ($slideDuration / ($slideDuration + $transitionDuration)) / $totalImages * 100%;
+	$totalTransitionDuration: ($transitionDuration / ($slideDuration + $transitionDuration)) / $totalImages * 100%;
+
+	@-webkit-keyframes slideLeft {
+		0%, 100% { left: 0; }
+		$percent: 0;
+		$width: 0;
+		// Calculates how many images you are using, your slide duration, and transition duration and automatically builds the keyframes.
+		@for $i from 0 through (($totalImages * 2) - 2) {
+			@if ($i + 1) % 2 == 0 {
+				$percent: $percent + $totalTransitionDuration;
+				$width: $width + $bannerWidth;
+			} @else {
+				$percent: $percent + $totalSlideDuration;
+			}
+			#{$percent} {
+				left: -($width);
+			}
+		}
+	}
+	
+	##{$id} {
+		position: relative;
+		overflow: hidden;
+		&, div img { width: $bannerWidth; height: $bannerHeight; }
+		div { position: absolute; width: ($bannerWidth * $totalImages); }
+		img { float: right; }
+		div { -webkit-animation: slideLeft $totalDuration ease infinite; }
+		div:hover { -webkit-animation-play-state: paused; }
+	}	
+}
+
+@include slider(slider, 768px, 341px, 4);
